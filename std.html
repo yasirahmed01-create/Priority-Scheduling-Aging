@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>PriorityOS | Scheduling Simulator</title>
+  <link rel="stylesheet" href="std.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">P</span><div><b>PriorityOS</b><small>OS LAB SIMULATOR</small></div></div>
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-item active" href="#dashboard">▦ <span>Dashboard</span></a>
+      <a class="nav-item" href="#process-section">☷ <span>Processes</span></a>
+      <a class="nav-item" href="#results">▥ <span>Simulation results</span></a>
+      <div class="sidebar-note"><b>Group 7 Project</b><span>Operating Systems</span><span>Priority Scheduling with Aging</span></div>
+    </aside>
+ 
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <div><div class="breadcrumb">OPERATING SYSTEMS <span>/</span> SCHEDULER</div><h1>Scheduling Dashboard</h1><p class="subheading">Explore how priority scheduling works — with and without aging.</p></div>
+        <button id="themeBtn" class="icon-btn" type="button" aria-label="Toggle theme">☾ <span>Dark mode</span></button>
+      </header>
+ 
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-icon blue">▤</div><span>Total processes</span><strong id="totalCount">0</strong><small>In current workload</small></article>
+        <article class="stat-card"><div class="stat-icon violet">◷</div><span>Total burst time</span><strong id="totalBurst">0</strong><small>CPU time units</small></article>
+        <article class="stat-card"><div class="stat-icon green">⇥</div><span>Highest priority</span><strong id="highestPriority">—</strong><small>Priority 1 is highest</small></article>
+        <article class="stat-card"><div class="stat-icon orange">◴</div><span>Aging interval</span><strong id="intervalStat">2</strong><small>Waiting time units</small></article>
+      </section>
+ 
+      <section class="panel" id="process-section">
+        <div class="panel-heading"><div><span class="kicker">WORKLOAD SETUP</span><h2>Add a process</h2><p>Enter the process details below to build your ready queue.</p></div><span class="status-pill"><i></i> Simulator ready</span></div>
+        <form id="processForm" class="process-form">
+          <label>Process ID<input id="pid" type="text" placeholder="e.g. P1" maxlength="12" required></label>
+          <label>Arrival time<input id="arrival" type="number" min="0" step="1" value="0" required></label>
+          <label>Burst time<input id="burst" type="number" min="1" step="1" value="3" required></label>
+          <label>Priority<input id="priority" type="number" min="1" step="1" value="2" required></label>
+          <button class="primary-btn" type="submit">＋ Add process</button>
+        </form>
+        <div class="form-foot"><span>ⓘ Lower priority number means higher priority.</span><span>Whole numbers only</span></div>
+      </section>
+ 
+      <section class="panel">
+        <div class="panel-heading compact"><div><span class="kicker">READY QUEUE</span><h2>Process list <span class="count-badge" id="listCount">0</span></h2></div>
+          <div class="toolbar">
+            <input id="searchInput" class="search" type="search" placeholder="Search process…">
+            <button id="sampleBtn" class="soft-btn" type="button">Load sample</button>
+            <button id="exportBtn" class="soft-btn" type="button">Export CSV</button>
+            <button id="clearBtn" class="danger-btn" type="button">Clear all</button>
+          </div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>PROCESS</th><th>ARRIVAL</th><th>BURST</th><th>PRIORITY</th><th>EST. FINISH*</th><th>ACTION</th></tr></thead><tbody id="processTable"><tr><td colspan="6" class="empty">No processes yet. Add a process or load sample data.</td></tr></tbody></table></div>
+        <p class="table-note">*Estimated finish is a simple arrival + burst reference, not the scheduled completion time.</p>
+        <div class="simulation-controls">
+          <label class="interval-control">Aging interval <input id="agingInterval" type="number" min="1" step="1" value="2"></label>
+          <div class="control-actions"><button id="resetBtn" class="soft-btn" type="button">Reset results</button><button id="runBtn" class="primary-btn run-btn" type="button">▶ Run simulation</button></div>
+        </div>
+        <p id="message" class="message" role="status"></p>
+      </section>
+ 
+      <section id="results" class="results-section hidden">
+        <div class="results-title"><div><span class="kicker">ANALYSIS</span><h2>Simulation results</h2><p>Compare CPU execution order and performance metrics.</p></div><span class="completed-pill">✓ Simulation completed</span></div>
+        <div class="result-grid">
+          <article class="panel result-panel"><div class="result-heading"><div><span class="kicker">BASELINE</span><h3>Without aging</h3></div><span class="legend-dot blue-dot"></span></div><div id="withoutAging"></div></article>
+          <article class="panel result-panel"><div class="result-heading"><div><span class="kicker">STARVATION CONTROL</span><h3>With aging</h3></div><span class="legend-dot green-dot"></span></div><div id="withAging"></div></article>
+        </div>
+        <article class="panel comparison-panel"><span class="kicker">SIDE-BY-SIDE</span><h3>Performance comparison</h3><div id="comparison"></div></article>
+        <article class="panel"><span class="kicker">LEARN THE CONCEPT</span><h3>How to read the results</h3><div class="explain-grid"><div><b>Waiting time</b><p>Total time a process spends waiting in the ready queue.</p></div><div><b>Turnaround time</b><p>Completion time minus arrival time.</p></div><div><b>Aging</b><p>A waiting process gradually receives a better priority to reduce starvation risk.</p></div></div></article>
+      </section>
+      <footer>PriorityOS · Educational simulator · Does not modify the Linux kernel scheduler.</footer>
+    </main>
+  </div>
+  <script src="scheduler.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

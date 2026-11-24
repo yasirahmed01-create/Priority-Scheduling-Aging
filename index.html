@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priority Scheduling with Aging</title>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+<main class="container">
+  <header class="hero">
+    <p class="eyebrow">OPERATING SYSTEMS PROJECT · GROUP 7</p>
+    <h1>Priority Scheduling with Aging</h1>
+    <p>Compare preemptive priority scheduling with and without aging.</p>
+  </header>
+
+  <section class="card">
+    <h2>Add a Process</h2>
+    <form id="processForm" class="form-grid">
+      <label>Process ID
+        <input id="pid" type="text" placeholder="P1" required>
+      </label>
+      <label>Arrival Time
+        <input id="arrival" type="number" min="0" value="0" required>
+      </label>
+      <label>Burst Time
+        <input id="burst" type="number" min="1" value="3" required>
+      </label>
+      <label>Priority
+        <input id="priority" type="number" min="1" value="2" required>
+      </label>
+      <button type="submit">Add Process</button>
+    </form>
+    <p class="hint">Priority 1 is the highest priority. All time values must be whole numbers.</p>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <h2>Process List</h2>
+      <div class="actions">
+        <button id="sampleBtn" class="secondary" type="button">Load Sample Data</button>
+        <button id="clearBtn" class="danger" type="button">Clear All</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Process</th><th>Arrival</th><th>Burst</th><th>Priority</th></tr>
+        </thead>
+        <tbody id="processTable">
+          <tr><td colspan="4" class="empty">No processes added yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="run-row">
+      <label class="aging-input">Aging interval
+        <input id="agingInterval" type="number" min="1" value="2">
+      </label>
+      <button id="runBtn" type="button">Run Simulation</button>
+    </div>
+    <p id="message" class="message" aria-live="polite"></p>
+  </section>
+
+  <section id="results" class="results hidden">
+    <div class="card">
+      <h2>Without Aging</h2>
+      <div id="withoutAging"></div>
+    </div>
+    <div class="card">
+      <h2>With Aging</h2>
+      <div id="withAging"></div>
+    </div>
+    <div class="card">
+      <h2>Performance Comparison</h2>
+      <div id="comparison"></div>
+    </div>
+  </section>
+
+  <footer>Educational simulator — it does not change or control the Linux kernel scheduler.</footer>
+</main>
+<script src="index.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
